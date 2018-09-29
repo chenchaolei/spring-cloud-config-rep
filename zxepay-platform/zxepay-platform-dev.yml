@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    #数据库配置
+    url: jdbc:oracle:thin:@127.0.0.1:1521/orcl
+    username: zxepay_test
+    password: 1
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 连接池配置
+    # 初始化大小，最小，最大
+    initialSize: 20
+    minIdle: 20
+    maxActive: 500
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    # 测试连接是否有效的sql
+    validationQuery: SELECT 1 FROM DUAL
+    # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+    testWhileIdle: false
+    # 申请连接时执行validationQuery检测连接是否有效
+    testOnBorrow: false
+    # 归还连接时执行validationQuery检测连接是否有效
+    testOnReturn: false
+    poolPreparedStatements: true
+    # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：
+    # 监控统计用的filter:stat
+    # 日志用的filter:slf4j
+    # 防御sql注入的filter:wall
+    filters: stat,wall
+    # druid 监控端用户名密码，url为ip:port/druid
+    druid:
+      stat-view-servlet:
+        login-username: root
+        login-password: root
+        allow: ${GATEWAY_HOST:127.0.0.1}
+  rabbitmq:
+    host: 192.168.1.102
+    port: 5672
+    username: admin
+    password: 123456

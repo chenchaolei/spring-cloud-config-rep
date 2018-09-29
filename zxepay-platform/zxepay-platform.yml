@@ -1,0 +1,50 @@
+spring:
+  freemarker:
+    #是否优先从文件系统加载template，以支持热加载，默认为true
+    prefer-file-system-access: false
+  cloud:
+    #开启消息跟踪
+    bus:
+      trace:
+        enabled: true
+
+mybatis:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  typeAliasesPackage: com.bosssoft.zxepay.platform.model
+  configuration:
+    cache-enabled: true
+    lazy-loading-enabled: false
+    jdbc-type-for-null: NULL
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    #驼峰下划线转换
+    map-underscore-to-camel-case: true
+    aggressive-lazy-loading: true
+
+pagehelper:
+  autoDialect: true
+  closeConn: false
+  reasonable: true
+
+#熔断器配置
+feign:
+  hystrix:
+    enabled: true
+
+management:
+  security:
+    #关闭安全验证
+    enabled: false
+  #加载所有的端点(默认只加载了info、health)
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    refresh:
+      show-details: always
+    trace:
+      show-details: always
+
+#test
+profile:
+  name: dev1940
