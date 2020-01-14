@@ -1,0 +1,41 @@
+#当请求url被多条路由规则匹配时, 匹配结果完全取决于路由规则的保存顺序,
+#而propertes配置文件的内容无法保证有序, 所以当出现这种情况的时候,
+#为了保证路由的优先顺序, 我们需要使用YAML文件来配置, 以实现有序的路由规则.
+
+zuul:
+  #路由前缀(避免让路由表达式的起始字符串与zuul.prefix参数相同, 否则出现未知bug)
+  prefix: /api
+  #路由忽略(Ant风格), 忽略表达式匹配的是网关服务接收到的原始的url, 其包括路由前缀
+  ignored-patterns: '/**/ignore/**'
+  #忽略所有对外的服务, 按需在zuul.routes节点下配置具体服务的路由规则
+  ignored-services: '*'
+  #能够使得网关在进行路由转发前为请求设置Host头信息, 以标识最初的服务端请求地址,
+  #解决网关重定向问题, 避免暴露内部服务细节.
+  #应用场景为登录完成后通过重定向的方式跳转到登录后的页面.
+  addHostHeader: true
+
+spring:
+  cloud:
+    #开启消息跟踪
+    bus:
+      trace:
+        enabled: true
+
+management:
+  security:
+    #关闭安全验证
+    enabled: false
+  #加载所有的端点(默认只加载了info、health)
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    info:
+      show-details: always
+    health:
+      show-details: always
+    refresh:
+      show-details: always
+    trace:
+      show-details: always

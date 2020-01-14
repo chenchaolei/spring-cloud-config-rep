@@ -1,0 +1,29 @@
+zuul:
+  routes:
+    platform-web-test:
+      path: '/platform-web/test/**'
+      serviceId: platform-web
+      #开启自定义敏感头
+      customSensitiveHeaders: true
+    platform-web:
+      path: '/platform-web/**'
+      serviceId: platform-web
+      #开启自定义敏感头
+      customSensitiveHeaders: true
+    config-server-test:
+      path: '/config-server/test/**'
+      serviceId: config-server
+      #开启自定义敏感头
+      customSensitiveHeaders: true
+    config-server:
+      path: '/config-server/**'
+      serviceId: config-server
+      #开启自定义敏感头
+      customSensitiveHeaders: true
+
+spring:
+  rabbitmq:
+    host: 192.168.1.102
+    port: 5672
+    username: admin
+    password: 123456
